@@ -7,23 +7,39 @@
 
     <p class="lead">
 
-    <h4>Find the city</h4>
+    <h4>Aply for Loan</h4>
 
     <form role="form">
         <div class="form-group">
-            <label for="latitude">Latitude</label>
-            <input type="text" class="form-control" id="latitude" placeholder="Latitude" ng-model="coords.lat">
+            <label for="firstName">First Name</label>
+            <input type="text" class="form-control" id="firstName" placeholder="First Name" ng-model="client.firstName">
         </div>
         <div class="form-group">
-            <label for="longtitude">Longtitude</label>
-            <input type="text" class="form-control" id="longtitude" placeholder="Longtitude" ng-model="coords.lon">
+            <label for="lastName">Last Name</label>
+            <input type="text" class="form-control" id="lastName" placeholder="Last Name" ng-model="client.lastName">
         </div>
-        <button type="button" class="btn btn-default" ng-click="findCity()">Find</button>
+        <div class="form-group">
+          <label for="age">Age</label>
+          <input type="text" class="form-control" id="age" placeholder="Age" ng-model="client.age">
+        </div>
+        <div class="form-group">
+          <label for="amount">Amount</label>
+          <input type="text" class="form-control" id="amount" placeholder="Amount" ng-model="client.amount">
+        </div>
+        <div class="form-group">
+          <label for="jobPosition">Job Position</label>
+          <select id="jobPosition" class="form-control" ng-model="client.jobPosition">
+            <option value="IT">IT</option>
+            <option value="FINANCIAL SECTOR">FINANCIAL SECTOR</option>
+            <option value="OTHER">OTHER</option>
+          </select>
+        </div>
+        <button type="button" class="btn btn-default" ng-click="applyForLoan()">Apply</button>
     </form>
 
     <hr/>
 
     <div class="well">
-        The city you are looking for is: {{city}}
+        The city you are looking for is: {{client.firstName}}
     </div>
 </div>
