@@ -11,22 +11,22 @@ class ClientServiceWorker implements ClientServiceWorkerI {
     
     private final PlacesExtractor placesExtractor
     private final PlacesJsonBuilder placesJsonBuilder
-    private final ColleratorClient colleratorClient
+    private final ColleratorClientService colleratorClientService
 
     @Autowired
     ClientServiceWorker(PlacesExtractor placesExtractor, 
                            PlacesJsonBuilder placesJsonBuilder,
-                           ColleratorClient colleratorClient) {
+                           ColleratorClientService colleratorClientService) {
         this.placesExtractor = placesExtractor
         this.placesJsonBuilder = placesJsonBuilder
-        this.colleratorClient = colleratorClient
+        this.colleratorClientService = colleratorClientService
     }
 
     @Override
     void collectAndPropagate(long pairId, List<Tweet> tweets) {
         Map<String, Optional<Place>> extractedPlaces = placesExtractor.extractPlacesFrom(tweets)
         String jsonToPropagate = placesJsonBuilder.buildPlacesJson(pairId, extractedPlaces)
-        colleratorClient.populatePlaces(pairId, jsonToPropagate)
+        colleratorClientService.populatePlaces(pairId, jsonToPropagate)
         log.debug("Sent json [$jsonToPropagate] to collerator")
     }
 }

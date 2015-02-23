@@ -11,7 +11,7 @@ class LoanAppServiceWorker implements LoanAppServiceWorkerI {
     
     private final PlacesExtractor placesExtractor
     private final PlacesJsonBuilder placesJsonBuilder
-    private final ColleratorClient colleratorClient
+    private final ColleratorLoanAppService colleratorLoanAppService
 
     @Autowired
     LoanAppServiceWorker(PlacesExtractor placesExtractor, 
@@ -19,14 +19,14 @@ class LoanAppServiceWorker implements LoanAppServiceWorkerI {
                            ColleratorClient colleratorClient) {
         this.placesExtractor = placesExtractor
         this.placesJsonBuilder = placesJsonBuilder
-        this.colleratorClient = colleratorClient
+        this.colleratorLoanAppService = colleratorLoanAppService
     }
 
     @Override
     void collectAndPropagate(long pairId, List<Tweet> tweets) {
         Map<String, Optional<Place>> extractedPlaces = placesExtractor.extractPlacesFrom(tweets)
         String jsonToPropagate = placesJsonBuilder.buildPlacesJson(pairId, extractedPlaces)
-        colleratorClient.populatePlaces(pairId, jsonToPropagate)
+        colleratorLoanAppService.populatePlaces(pairId, jsonToPropagate)
         log.debug("Sent json [$jsonToPropagate] to collerator")
     }
 }

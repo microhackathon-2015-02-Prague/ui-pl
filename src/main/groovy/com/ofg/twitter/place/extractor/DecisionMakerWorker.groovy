@@ -11,22 +11,22 @@ class DecisionMakerWorker implements DecisionMakerWorkerI {
     
     private final PlacesExtractor placesExtractor
     private final PlacesJsonBuilder placesJsonBuilder
-    private final ColleratorClient colleratorClient
+    private final ColleratorDecisionMaker colleratorDecisionMaker
 
     @Autowired
     DecisionMakerWorker(PlacesExtractor placesExtractor, 
                            PlacesJsonBuilder placesJsonBuilder,
-                           ColleratorClient colleratorClient) {
+                           ColleratorDecisionMaker colleratorDecisionMaker) {
         this.placesExtractor = placesExtractor
         this.placesJsonBuilder = placesJsonBuilder
-        this.colleratorClient = colleratorClient
+        this.colleratorDecisionMaker = colleratorDecisionMaker
     }
 
     @Override
     void collectAndPropagate(long pairId, List<Tweet> tweets) {
         Map<String, Optional<Place>> extractedPlaces = placesExtractor.extractPlacesFrom(tweets)
         String jsonToPropagate = placesJsonBuilder.buildPlacesJson(pairId, extractedPlaces)
-        colleratorClient.populatePlaces(pairId, jsonToPropagate)
+        colleratorDecisionMaker.populatePlaces(pairId, jsonToPropagate)
         log.debug("Sent json [$jsonToPropagate] to collerator")
     }
 }

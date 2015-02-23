@@ -11,7 +11,7 @@ class OfferGeneratorWorker implements OfferGeneratorWorkerI {
     
     private final PlacesExtractor placesExtractor
     private final PlacesJsonBuilder placesJsonBuilder
-    private final ColleratorClient colleratorClient
+    private final ColleratorOfferGenerator colleratorOfferGenerator
 
     @Autowired
     OfferGeneratorWorker(PlacesExtractor placesExtractor, 
@@ -19,14 +19,14 @@ class OfferGeneratorWorker implements OfferGeneratorWorkerI {
                            ColleratorClient colleratorClient) {
         this.placesExtractor = placesExtractor
         this.placesJsonBuilder = placesJsonBuilder
-        this.colleratorClient = colleratorClient
+        this.colleratorOfferGenerator = colleratorOfferGenerator
     }
 
     @Override
     void collectAndPropagate(long pairId, List<Tweet> tweets) {
         Map<String, Optional<Place>> extractedPlaces = placesExtractor.extractPlacesFrom(tweets)
         String jsonToPropagate = placesJsonBuilder.buildPlacesJson(pairId, extractedPlaces)
-        colleratorClient.populatePlaces(pairId, jsonToPropagate)
+        colleratorOfferGenerator.populatePlaces(pairId, jsonToPropagate)
         log.debug("Sent json [$jsonToPropagate] to collerator")
     }
 }
