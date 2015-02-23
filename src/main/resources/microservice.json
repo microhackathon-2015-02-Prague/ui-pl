@@ -4,6 +4,18 @@
         "dependencies": {
             "collerator": {
                 "path": "com/ofg/twitter-places-collerator"
+            },
+            "decisionMaker": {
+                "path": "com/ofg/loan-application-decision-maker"
+            },
+            "offerGenerator": {
+              "path": "com/ofg/marketing-offer-generator"
+            },
+            "clientService": {
+              "path": "com/ofg/client-service"
+            },
+            "loanAppService": {
+              "path": "com/ofg/loan-application-service"
             }
         }
     }

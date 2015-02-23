@@ -20,3 +20,7 @@ stubrunner.stubs:
 
 server:
   port: 8059
+
+stubrunner:
+  use-microservice-definitions: true
+  skip-local-repo: true
